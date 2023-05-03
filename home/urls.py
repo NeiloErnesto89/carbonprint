@@ -5,7 +5,8 @@ from . import views # import views module from current directory
 #special var -> array of urlpattern objects
 # views we dont pass function, give just a reference 
 # URLCOnf module -> URL Configuration and we want to import this into the main url configuration
-urlpatterns = [ path('hello/', views.say_hello), 
+urlpatterns = [ path('', views.index), # empty string -> root of our app') 
+               path('hello/', views.say_hello), 
                path('temp/', views.template_test),] # path function takes 3 args: route, view, name 
                
   

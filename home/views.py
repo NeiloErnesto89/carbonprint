@@ -4,6 +4,9 @@ from django.http import HttpResponse
 # Create your views here.
 # view is 'request-handler' function -> takes a request a returns a response
 
+def index(request):
+    return HttpResponse("Hello, world. You're at the home index.")
+
 def say_hello(request):
     # return render(request, 'home.html')
     # return instance of HttpResponse class
