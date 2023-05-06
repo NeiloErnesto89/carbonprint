@@ -8,6 +8,7 @@ from . import views # import views module from current directory
 urlpatterns = [ path('', views.index), # empty string -> root of our app') 
                path('hello/', views.say_hello), 
                path('temp/', views.template_test),
-               path('geo/', views.geolocation )] # path function takes 3 args: route, view, name 
+               path('geo/', views.geolocation ),
+               path('restricted/', views.restricted),] # path function takes 3 args: route, view, name 
                
   

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 import requests 
 import json
 from datetime import datetime
+from django.contrib.auth.decorators import login_required # decorator to restrict access to view
 
 # Create your views here.
 # view is 'request-handler' function -> takes a request a returns a response
@@ -10,8 +11,11 @@ from datetime import datetime
 def index(request):
     # return HttpResponse("Hello, world. You're at the home index.")
     return render(request, 'home.html', {'today': datetime.today()}) # return request, template
-    
-    
+
+@login_required(login_url='/admin') # decorator to restrict access to view and redirect to admin login page if not logged in 
+def restricted(request):
+    return render(request, 'restricted.html', {'today': datetime.today()})
+ 
 def say_hello(request):
     # return render(request, 'home.html')
     # return instance of HttpResponse class
