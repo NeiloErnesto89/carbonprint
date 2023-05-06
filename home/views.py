@@ -2,13 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse 
 import requests 
 import json
+from datetime import datetime
 
 # Create your views here.
 # view is 'request-handler' function -> takes a request a returns a response
 
 def index(request):
     # return HttpResponse("Hello, world. You're at the home index.")
-    return render(request, 'home.html') # return request, template
+    return render(request, 'home.html', {'today': datetime.today()}) # return request, template
     
     
 def say_hello(request):
