@@ -7,6 +7,7 @@ from . import views # import views module from current directory
 # URLCOnf module -> URL Configuration and we want to import this into the main url configuration
 urlpatterns = [ path('', views.index), # empty string -> root of our app') 
                path('hello/', views.say_hello), 
-               path('temp/', views.template_test),] # path function takes 3 args: route, view, name 
+               path('temp/', views.template_test),
+               path('geo/', views.geolocation )] # path function takes 3 args: route, view, name 
                
   

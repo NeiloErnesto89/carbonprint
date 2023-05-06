@@ -16,10 +16,14 @@ Including another URLconf
 """
 import debug_toolbar
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include # add url
+
+# from home.views import index
 
 urlpatterns = [
+    path('', include('home.urls')), # renders url directly (not need for '/home/)
     path('admin/', admin.site.urls),
-    path('home/', include('home.urls')), # any urls that begin with 'home' should be routed to our home app
+    # path(r'^$', index, name='index'), # rendering base page
+    # path('home/', include('home.urls')), # any urls that begin with 'home' should be routed to our home app
     path('__debug__/', include('debug_toolbar.urls')), 
 ]
