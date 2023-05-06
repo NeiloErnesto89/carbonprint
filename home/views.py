@@ -12,7 +12,7 @@ def index(request):
     # return HttpResponse("Hello, world. You're at the home index.")
     return render(request, 'home.html', {'today': datetime.today()}) # return request, template
 
-@login_required(login_url='/admin') # decorator to restrict access to view and redirect to admin login page if not logged in 
+@login_required(login_url='/admin') # decorator to restrict access to view and redirect to admin login page  
 def restricted(request):
     return render(request, 'restricted.html', {'today': datetime.today()})
  
