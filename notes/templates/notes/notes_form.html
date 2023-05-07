@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- using a form tag via html, we can send information to the server (via POST method) 
+    here we allow the user to pass info/data back that is defined on endpoint (create)-->
+<form method="POST" enctype="multipart/form-data">  
+    {% csrf_token %}
+    {{ form }}
+    
+    <button type="submit" class="btn btn-info">Save</button>
+</form>
+
+{% endblock %}

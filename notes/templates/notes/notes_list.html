@@ -15,12 +15,15 @@
         <div class="p-3 border card">
             
             <div class="card-body">
-                <h5 class="card-title">{{ note.title }}</h5>
-                <p class="card-text">{{ note.content }}</p>
+                <h5 class="card-title">Title: {{ note.title }}</h5>
+                <p class="card-text">{{ note.content|truncatechars:10 }}</p>
+                <p class="text-muted">created on {{ note.created_at }} </p>
                 <!-- <p class="card-text"><small class="text-muted">{{ note.id }}</small></p> -->
                 <!-- using notes id here to concat to url route to get to specific note object page  -->
                 <!-- https://stackoverflow.com/questions/35382716/django-templates-how-to-concatenate-a-named-url-and-a-string -->
                 <a href="{% url 'notes_list' %}{{note.id}}" type="button" class="btn btn-primary">Check Out This Note</a>
+                <a href="{% url 'notes_detail' pk=note.id %}" type="button" class="btn btn-success">Check Out Same</a>
+                
             </div>
         </div>
     </div>
