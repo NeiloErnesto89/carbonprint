@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles', # serving static files e.g. images, css, js
     'home',
     'debug_toolbar', # django debug toolbar
+    'notes',
 ]
 
 MIDDLEWARE = [
