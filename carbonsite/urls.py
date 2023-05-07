@@ -25,5 +25,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path(r'^$', index, name='index'), # rendering base page
     # path('home/', include('home.urls')), # any urls that begin with 'home' should be routed to our home app
-    path('__debug__/', include('debug_toolbar.urls')), 
+    path('__debug__/', include('debug_toolbar.urls')),
+    path('internal/', include('notes.urls')), # any urls that begin with 'notes' should be routed to our notes app
 ]
