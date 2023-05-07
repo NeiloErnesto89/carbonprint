@@ -1,21 +1,13 @@
-<!-- shorcut == html:5 + tab -->
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome Page!</title>
+{% block content %}
 
-
-</head>
-
-<body>
-  <h1>Welcome to Carbonprint</h1>
+  <h1>Welcome to Carbonprint!!</h1>
   <h3>Carbonprint is a web application that helps you to calculate your carbon footprint</h3>
-
+  
   <p>Today is {{ today }}</p>
-</body>
+  
+  <!-- we refer here to 'name' parm in url route -->
+  <a href="{% url 'notes_list' %}" type="button" class="btn btn-success">Check Out Admin Notes</a>
 
-</html>
+{% endblock %}

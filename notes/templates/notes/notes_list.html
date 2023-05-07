@@ -1,16 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes for Admin</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-    <h1> Admin Notes</h1>
+{% block content %}
+
+<h1> Admin Notes</h1>
+<!-- <ul>
     {% for note in notes %}
-    <p>{{ note.title }}</p>
+    <li>{{ note.title }}</li>
     {% endfor %}
-</body>
-</html>
+</ul> -->
+
+<div class="row row-cols3 g-2">
+    {% for note in notes %}
+    <div class="col">
+        <div class="p-3 border card">
+            
+            <div class="card-body">
+                <h5 class="card-title">{{ note.title }}</h5>
+                <p class="card-text">{{ note.content }}</p>
+                <!-- <p class="card-text"><small class="text-muted">{{ note.id }}</small></p> -->
+                <!-- using notes id here to concat to url route to get to specific note object page  -->
+                <!-- https://stackoverflow.com/questions/35382716/django-templates-how-to-concatenate-a-named-url-and-a-string -->
+                <a href="{% url 'notes_list' %}{{note.id}}" type="button" class="btn btn-primary">Check Out This Note</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+
+<!-- {% for note in notes %} -->
+<!-- test to render css styling on html
+<li class="note-li">{{ note.title }}</li>
+{% endfor %} -->

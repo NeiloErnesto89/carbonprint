@@ -67,7 +67,7 @@ ROOT_URLCONF = 'carbonsite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'], # add templates folder to project
+        'DIRS': [BASE_DIR/'static/templates'], # add templates folder to project
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,6 +129,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [ 
+    BASE_DIR / 'static', # add static folder to project
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
