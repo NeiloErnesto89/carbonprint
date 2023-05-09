@@ -25,3 +25,9 @@ def login_user(request):
             return redirect('login') # redirect to login page
     else:
         return render(request, 'authenticate/login.html', {}) # empty conetxt dict
+
+
+def logout_user(request):
+    logout(request)
+    messages.success(request, 'You have successfully logged out')
+    return redirect('home_page') # redirect to home page

@@ -35,9 +35,17 @@
             <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{% url 'home_page'%}">Home</a>
             </li>
+            
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout'%}">Logout</a>
+            </li>
+            {% else %}
             <li class="nav-item">
             <a class="nav-link" href="{% url 'login'%}">Login</a>
             </li>
+            {% endif %}
+
             <li class="nav-item">
             <a class="nav-link" href="{% url 'notes_list' %}">Notes</a>
             </li>
@@ -53,11 +61,19 @@
     {% if messages %}
 
     {% for message in messages %}
-            
+    {% if user.is_authenticated %}
+    
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    
+    {% else %}  
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
     {{ message }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    {% endif %}
         
     {% endfor %}
     {% comment %} {% if message.tags == 'success' %} {% endcomment %}
