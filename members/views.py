@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm # django register form for users
 
 def login_user(request):
     # if user fills form and submits
@@ -31,3 +32,28 @@ def logout_user(request):
     logout(request)
     messages.success(request, 'You have successfully logged out')
     return redirect('home_page') # redirect to home page
+
+
+# function to register new users
+
+def register_user(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST) # if user fills form and submits - we pass that data to the UserCreationForm
+        # now we validate the form
+        if form.is_valid():
+            form.save() # save the form to the database
+            # username = form.cleaned_data.get('username') # get the username from the form 'cleaned' data
+            # password = form.cleaned_data.get('password1') # get the 1st password from the form 'cleaned' data
+            username = form.cleaned_data['username'] # get the username from the form 'cleaned' data
+            password = form.cleaned_data['password1']
+            # now we authenticate the user & sign them in
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, 'You have successfully registered!!')
+            return redirect('home_page') # redirect to home page with success message
+        # else - potential user wants to fill out form so we redirect 
+    else: 
+        form = UserCreationForm() # create a new form
+    
+    # within if-else, we have a form context dict which we need to make available to the template                
+    return render(request, 'authenticate/register_user.html', { 'form': form}) # form context dict 

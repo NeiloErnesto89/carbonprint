@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    There was an error with your form. Please try again.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+{% endif %}
+
+<h1>Register</h1>
+
+<h2>Sign Up Here</h2>
+
+<!-- using a form tag via html, we can send information to the server (via POST method) 
+    here we allow the user to pass info/data back that is defined on endpoint (create)
+    in the action, we also explicitly point to the url (name = register)-->
+<form action="{% url 'register' %}" method="POST" >  
+    {% csrf_token %} <!-- this is a security 'token' to prevent cross-site request forgery -->
+
+   {{ form.as_p }}  
+  
+  <input type="submit" value="submit" class="btn btn-primary">
+</form>
+      
+
+{% endblock %}
