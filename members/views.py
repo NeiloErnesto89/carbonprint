@@ -53,7 +53,11 @@ def register_user(request):
             login(request, user)
             messages.success(request, 'You have successfully registered!!')
             return redirect('home_page') # redirect to home page with success message
-        # else - potential user wants to fill out form so we redirect 
+        # else:
+        #     # if form is invalid, we want to hide the help text
+        #     for field in form:
+        #         field.help_text = ''
+    # else - potential user wants to fill out form so we redirect 
     else: 
         form = RegisterUserForm() # create a new form former UserCreationForm()
     

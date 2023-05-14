@@ -10,10 +10,10 @@
     </div>
 
 {% endif %}
-
+{% comment %} we can now use bootstrap on django user auth forms as we updated the model {% endcomment %}
+<div class="shadow p-4 mb-5 bg-body rounded">
 <h1>Register</h1>
 
-<h2>Sign Up Here</h2>
 
 <!-- using a form tag via html, we can send information to the server (via POST method) 
     here we allow the user to pass info/data back that is defined on endpoint (create)
@@ -21,10 +21,22 @@
 <form action="{% url 'register' %}" method="POST" >  
     {% csrf_token %} <!-- this is a security 'token' to prevent cross-site request forgery -->
 
-   {{ form.as_p }}  
+   {% comment %} {{ form.as_p }}   {% endcomment %}
+
+    {% for field in form %}
+    <div>
+      {{ field.errors }}
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {% if field.errors %}
+        <p class="error">{{ field.help_text }}</p>
+      {% endif %}
+      {{ field }}
+    </div>
+  {% endfor %}
+  <br><br>
   
   <input type="submit" value="submit" class="btn btn-primary">
 </form>
-      
+</div>
 
 {% endblock %}
