@@ -17,6 +17,14 @@ import os
 # if path.exists("env.py"):
 #   import env
 
+# via python package python-dotenv to access env variables
+from dotenv import load_dotenv
+
+load_dotenv()
+
+print(os.environ.get("SECRET_API_KEY"))
+# print(os.getenv("SECRET_KEY"))
+
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECRET_KEY = os.environ.get('SECRET_KEY')
