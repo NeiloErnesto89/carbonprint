@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm # django register form for users
+from .forms import RegisterUserForm # import forms.py
 
 def login_user(request):
     # if user fills form and submits
@@ -38,7 +39,8 @@ def logout_user(request):
 
 def register_user(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST) # if user fills form and submits - we pass that data to the UserCreationForm
+        # formerly UserCreationForm(request.POST) - now RegisterUserForm(request.POST)
+        form = RegisterUserForm(request.POST) # if user fills form and submits - we pass that data to the UserCreationForm
         # now we validate the form
         if form.is_valid():
             form.save() # save the form to the database
@@ -53,7 +55,7 @@ def register_user(request):
             return redirect('home_page') # redirect to home page with success message
         # else - potential user wants to fill out form so we redirect 
     else: 
-        form = UserCreationForm() # create a new form
+        form = RegisterUserForm() # create a new form former UserCreationForm()
     
     # within if-else, we have a form context dict which we need to make available to the template                
     return render(request, 'authenticate/register_user.html', { 'form': form}) # form context dict 
