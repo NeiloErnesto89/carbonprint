@@ -22,8 +22,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-print(os.environ.get("SECRET_API_KEY"))
-# print(os.getenv("SECRET_KEY"))
+# https://dev.to/vladyslavnua/how-to-protect-your-django-secret-and-oauth-keys-53fl 
+# this works and prints dummy key
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
+# print(SECRET_KEY)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
