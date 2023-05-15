@@ -29,4 +29,5 @@ urlpatterns = [
     path('internal/', include('notes.urls')), # any urls that begin with 'notes' should be routed to our notes app
     path('members/', include('django.contrib.auth.urls')), # any urls that begin with 'members' should be routed to our members app
     path('members/', include('members.urls')), # any urls that begin with 'members' should be routed to our members app
+    path('weather/', include('weather.urls')),
 ]

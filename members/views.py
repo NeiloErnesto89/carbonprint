@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm # django register form for users
 from .forms import RegisterUserForm # import forms.py
 
+
 def login_user(request):
     # if user fills form and submits
     if request.method == "POST":

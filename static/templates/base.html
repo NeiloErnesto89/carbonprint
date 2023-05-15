@@ -48,10 +48,17 @@
             <a class="nav-link" href="{% url 'register'%}">Register</a>
             </li>
             {% endif %}
-
+            
             <li class="nav-item">
-            <a class="nav-link" href="{% url 'notes_list' %}">Notes</a>
+            <a class="nav-link" href="{% url 'weather' %}">Weather Comparison</a>
             </li>
+            
+            {% if user.is_superuser %}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'notes_list' %}">Admin Notes</a>
+            </li>
+            {% endif %}
+            
             
         </ul>
         </div>

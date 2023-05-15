@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'debug_toolbar', # django debug toolbar
     'notes',
     'members', # users app
+    'weather',
 ]
 
 MIDDLEWARE = [
