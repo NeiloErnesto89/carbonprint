@@ -3,6 +3,9 @@ import requests
 import datetime
 import os
 
+# emissions
+import json
+
 # request is param we pass into the endpoint
 def index(request):
     # API_KEY = SECRET_KEY = str(os.getenv('SECRET_KEY'))
@@ -121,3 +124,61 @@ def fetch_weather(city, api_key, current_weather_url):
     return weather_data
 
 
+def emissions(request):
+     
+    if request.method == 'POST':
+        region = request.POST['region'] # required
+        passengers = request.POST.get('passengers', None)
+        distance = request.POST.get('distance', None)
+
+        emissions_data1 = emissions_search(region, passengers, distance)
+        
+        context = {
+                'emissions1': emissions_data1,
+            }
+        
+        return render(request, 'weather/emissions.html', context)
+    
+    else:
+        
+        return render(request, 'weather/emissions.html')
+
+def emissions_search(region, passengers, distance):
+    
+    MY_API_KEY = "BKP2GHTHDQ4NY1K8440AJVQ6VSWR"
+    
+    activity_id = "passenger_train-route_type_na-fuel_source_electricity"
+    # regional = region
+    parameters =  {
+        "passengers": int(passengers),
+        "distance": int(distance),
+        "distance_unit": "km"
+        }
+
+    json_body = {
+        "emission_factor": {
+            "id": activity_id,
+            "region": region,
+            # More filters are possible here. See the full documentation for more options
+        },
+        # Specify how much energy we're estimating for
+        "parameters": parameters
+    }
+
+    # You must always specify your AUTH token in the "Authorization" header like this.
+    authorization_headers = {"Authorization": f"Bearer: {MY_API_KEY}"}
+
+    # We send a POST request to the estimate endpoint with a json body and the correct authorization headers
+    emission_response = requests.post("https://beta3.api.climatiq.io/estimate", json=json_body, headers=authorization_headers)
+    
+    reemission_response = emission_response.json()
+    # print(reemission_response['co2e'])
+    # print(reemission_response['emission_factor']['name'])
+    
+    emiss_data = {
+        'c02': reemission_response['co2e'],
+        'emiss_factor': reemission_response['emission_factor']['name'], 
+    }
+    print(emiss_data['c02'])
+    
+    return emiss_data

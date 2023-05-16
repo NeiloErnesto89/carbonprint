@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="shadow p-4 mb-5 bg-body rounded">
+<h1>Emissions</h1>
+
+<form action='' method="POST" >  
+    {% csrf_token %}
+
+    <input type="text" name="region" placeholder="Region like IE">
+    <input type="text" name="passengers" placeholder="Number of Travellers">
+    <input type="text" name="distance" placeholder="km">
+
+    <button type="submit" class="btn btn-primary">Show Co2</button>
+
+</form>
+
+{% comment %} {% if emiss_data1 %}
+<h1> {{ emiss_data1.c02 }} </h1>
+<h2> {{ emiss_data1.emiss_factor }} </h2>
+{% endif %} {% endcomment %}
+
+{% if emissions1 %}
+<div class="city-cotainer">
+    {% include 'weather/emissions_data.html' with emiss_data1=emissions1 %}
+</div>
+{% endif %}
+
+{% comment %} {% if error %} {% endcomment %}
+
+{% comment %} {% endif %} {% endcomment %}
+
+{% endblock%}
