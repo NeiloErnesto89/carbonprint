@@ -145,7 +145,7 @@ def emissions(request):
 
 def emissions_search(region, passengers, distance):
     
-    MY_API_KEY = "123"
+    MY_API_KEY = str(os.environ.get('API_KEY'))
     
     activity_id = "passenger_train-route_type_na-fuel_source_electricity"
     # regional = region
