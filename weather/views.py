@@ -14,10 +14,10 @@ def index(request):
     # define url endpoint for coordinates
     # forecast_url = "http://api.openweathermap.org/data/2.5/onecall?lat={}&lon={}&exclude=current,minutely,hourly,alerts&appid={}"
     # forecast_url = "https://api.openweathermap.org/data/3.0/onecall?lat={}&lon={}&exclude=current,minutely,hourly,alerts&appid={}"
-    # forecast_url = "https://api.openweathermap.org/data/2.5/forecast/daily?lat={}&lon={}&cnt=5&appid={}"
     
-    forecast_url = "https://api.openweathermap.org/data/2.5/forecast/daily?lat={}&lon={}&cnt=5&appid={}"
-    
+   
+    forecast_url = "https://api.openweathermap.org/data/2.5/forecast?lat={}&lon={}&appid={}"
+   
     # next we check if it's a post request or a get request
     # if post request - we need to get some data
     if request.method == 'POST':
@@ -36,14 +36,15 @@ def index(request):
             'weather_data1': weather1,
             'weather_data2': weather2,
         }
-            
+        
+        # UNCOMMENT IF WE WANT TO USE FORECAST TEST NOW API RESPONSE IS WORKING
         # weather_data1, daily_forecasts1 = fetch_weather_and_forecast(city1, API_KEY, current_weather_url, forecast_url)
         # if city2:
         #     weather_data2, daily_forecasts2 = fetch_weather_and_forecast(city2, API_KEY, current_weather_url, forecast_url)
         # else:
         #     weather_data2, daily_forecasts2 = None, None # exists but no data (optional)
         
-        # now we pass the data to the template via context dict
+        # # now we pass the data to the template via context dict
         # context = { 
         #     'weather_data1': weather_data1,
         #     'daily_forecasts1': daily_forecasts1,   
@@ -79,17 +80,28 @@ def fetch_weather_and_forecast(city, api_key, current_weather_url, forecast_url)
     
     daily_forecasts = [] 
     
-    for daily_data in forecast_response['daily'][:5]: # 5 days of forecast, daily kv pair
-        # append to list dictionaries with forecast info
-        daily_forecasts.append({ 
+    # for daily_data in forecast_response['daily'][:5]: # 5 days of forecast, daily kv pair
+    #     # append to list dictionaries with forecast info
+    #     daily_forecasts.append({ 
             
-            'day' : datetime.datetime.fromtimestamp(daily_data['dt']).strftime('%A'), # convert unix timestamp to day of the week
+    #         'day' : datetime.datetime.fromtimestamp(daily_data['dt']).strftime('%A'), # convert unix timestamp to day of the week
+    #         'min_temp' : round(daily_data['temp']['min'] - 273.15, 2), # convert to celsius
+    #         'max_temp' : round(daily_data['temp']['max'] - 273.15, 2), # convert to celsius 
+    #         'description' : daily_data['weather'][0]['description'],
+    #         'icon' : daily_data['weather'][0]['icon'],
+            
+    #         })
+        
+    # test loop
+    for daily_data in daily_forecasts[4]:
+        daily_forecasts.append({ 
+            'dt_txt' : daily_data['dt_txt'],
             'min_temp' : round(daily_data['temp']['min'] - 273.15, 2), # convert to celsius
             'max_temp' : round(daily_data['temp']['max'] - 273.15, 2), # convert to celsius 
             'description' : daily_data['weather'][0]['description'],
             'icon' : daily_data['weather'][0]['icon'],
-            
-            })
+         })
+        # print(data)
     # result is to retiurn 2 objects - weather_data and daily_forecasts
     return weather_data, daily_forecasts
 
@@ -107,3 +119,5 @@ def fetch_weather(city, api_key, current_weather_url):
     }
     
     return weather_data
+
+
