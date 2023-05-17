@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse # redi
 from django.http import Http404 # return correct error msg
 from django.contrib import messages
 
-from django.core.paginator import Paginator # import paginator to split notes into pages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger # import paginator to split notes into pages
 
 # class base views
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -18,12 +18,21 @@ def notes_list(request):
     all_notes = Notes.objects.all() # get all notes from db
     # Paginator class to split notes into pages
     paginator = Paginator(all_notes, 6) # split notes into pages of 4
+    try:
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        # previous context dict was - {'notes': all_notes}
+        return render(request, 'notes/notes_list.html', {"page_obj": page_obj}) # return request, template, context
+    except EmptyPage:
+        # raise Http404("Page does not exist, please try another")
+        page_obj = paginator.get_page(paginator.num_pages)
+        return render(request, 'notes/notes_list.html', {"page_obj": page_obj})
+    except PageNotAnInteger:
+        # raise Http404("Page does not exist, please try another!!!")
+        page_obj = paginator.get_page(1)
+        return render(request, 'notes/notes_list.html', {"page_obj": page_obj})
     
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    # previous context dict was - {'notes': all_notes}
-    return render(request, 'notes/notes_list.html', {"page_obj": page_obj}) # return request, template, context
-
+    
 # test to display admin note content in template - extra arg 'pk' for primary key to id note object
 def notes_detail(request, pk):
     # wrap query in try except block to catch error if note doesn't exist

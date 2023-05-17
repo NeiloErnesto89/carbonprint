@@ -2,6 +2,8 @@ from django.shortcuts import render
 import requests
 import datetime
 import os
+from django.http import Http404 # for fetch weather test
+from django.contrib import messages
 
 # emissions
 import json
@@ -34,29 +36,36 @@ def index(request):
             weather2 = fetch_weather(city2, API_KEY, current_weather_url)
         else:
             weather2 = None
-            
-        context = {
-            'weather_data1': weather1,
-            'weather_data2': weather2,
-        }
         
-        # UNCOMMENT IF WE WANT TO USE FORECAST TEST NOW API RESPONSE IS WORKING
-        # weather_data1, daily_forecasts1 = fetch_weather_and_forecast(city1, API_KEY, current_weather_url, forecast_url)
-        # if city2:
-        #     weather_data2, daily_forecasts2 = fetch_weather_and_forecast(city2, API_KEY, current_weather_url, forecast_url)
-        # else:
-        #     weather_data2, daily_forecasts2 = None, None # exists but no data (optional)
+        # 17/05/2023 -> need to updates this None for other logic gates  
+        if weather1 == None:
+            messages.error(request, 'This city does not exist in our database. Please try again ---')
+            return render(request, 'weather/weather.html')
         
-        # # now we pass the data to the template via context dict
-        # context = { 
-        #     'weather_data1': weather_data1,
-        #     'daily_forecasts1': daily_forecasts1,   
-        #     'weather_data2': weather_data2,
-        #     'daily_forecasts2': daily_forecasts2, 
-        # }
-        return render(request, 'weather/weather.html', context) # pass context to template
+        else:   
+            context = {
+                'weather_data1': weather1,
+                'weather_data2': weather2,
+            }
+                
+                # UNCOMMENT IF WE WANT TO USE FORECAST TEST NOW API RESPONSE IS WORKING
+                # weather_data1, daily_forecasts1 = fetch_weather_and_forecast(city1, API_KEY, current_weather_url, forecast_url)
+                # if city2:
+                #     weather_data2, daily_forecasts2 = fetch_weather_and_forecast(city2, API_KEY, current_weather_url, forecast_url)
+                # else:
+                #     weather_data2, daily_forecasts2 = None, None # exists but no data (optional)
+                
+                # # now we pass the data to the template via context dict
+                # context = { 
+                #     'weather_data1': weather_data1,
+                #     'daily_forecasts1': daily_forecasts1,   
+                #     'weather_data2': weather_data2,
+                #     'daily_forecasts2': daily_forecasts2, 
+                # }
+            return render(request, 'weather/weather.html', context) # pass context to template
+    # this section is important as it's the first time we render the page
     else: # we assume it's a get request
-
+        messages.error(request, 'This city does not exist in our database. Please try again.')
         return render(request, 'weather/weather.html')
 
 # CURRENTLY NOT INVOKED AS WE ARE NOT USING THE FORECAST DUE TO API LIMITATIONS - MUST PAY FOR IT
@@ -108,20 +117,43 @@ def fetch_weather_and_forecast(city, api_key, current_weather_url, forecast_url)
     # result is to retiurn 2 objects - weather_data and daily_forecasts
     return weather_data, daily_forecasts
 
-
+# outsource functionality of weather api request to a function - not an endpoint
 def fetch_weather(city, api_key, current_weather_url):
 
-    response= requests.get(current_weather_url.format(city, api_key)).json() # get as json object to treat as a dict in python
-
-    weather_data = {
-        'city': city,
-        'temperature': round(response['main']['temp'] - 273.15, 2), # round to 2 decimal places, also subtract as it's in kelvin
-        # 'country': response['sys']['country'],
-        'description': response['weather'][0]['description'],
-        'icon': response['weather'][0]['icon'],
-    }
+    # response check via - https://realpython.com/python-requests/ e.g. if response.status_code == 200: is same as -> if repsonse_check:
+    response_check = requests.get(current_weather_url.format(city, api_key))
+    # if response_check.status_code == 404:
+    #     # raise Http404("Response was a mess, please try another!!!")
+    #     return redirect('emissions')
+    if response_check: # if response ok
     
-    return weather_data
+        response= requests.get(current_weather_url.format(city, api_key)).json() # get as json object to treat as a dict in python
+        # if not response['message'] == 'city not found':
+        weather_data = {
+            'city': city,
+            'temperature': round(response['main']['temp'] - 273.15, 2), # round to 2 decimal places, also subtract as it's in kelvin
+            # 'country': response['sys']['country'],
+            'description': response['weather'][0]['description'],
+            'icon': response['weather'][0]['icon'],
+        }
+        
+        return weather_data
+    
+    else:
+        # if the response isn't successful, we return None
+        return None
+    
+    # else:
+    #     no_city = "no city found"
+    #     print(no_city)
+    #     raise Http404("Response was a mess, please try another!!!")
+
+    # else: # if response not ok
+    #     print(response['message'])
+    #     no_city = response['message']
+    #     return no_city
+        # raise Http404("Response was a mess, please try another!!!")
+        # return redirect('emissions')
 
 
 def emissions(request):

@@ -11,7 +11,7 @@
 <form action='' method="POST" >  
     {% csrf_token %}
 
-    <input type="text" name="city1" placeholder="Enter city name">
+    <input type="text" name="city1" placeholder="Enter city name" required>
     <input type="text" name="city2" placeholder="Enter another city name">
     {% comment %} <input type="submit" value="submit"> {% endcomment %}
 
