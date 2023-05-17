@@ -1,14 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h1>New Internal Admin Note</h1>
+<br>
 
 <!-- using a form tag via html, we can send information to the server (via POST method) 
     here we allow the user to pass info/data back that is defined on endpoint (create)-->
 <form method="POST" enctype="multipart/form-data">  
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
     
-    <button type="submit" class="btn btn-info">Save</button>
+    <button type="submit" class="btn btn-info btn-lg">Save</button>
 </form>
+
+<a href="{% url 'notes_list' %}" type="button" class="m-3 btn btn-warning btn-lg"><i class="bi bi-card-list"></i> Return to Admin Notes</a>
+
 
 {% endblock %}

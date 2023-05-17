@@ -5,5 +5,13 @@
     <h1>Note: {{ note.title }}</h1>
 
     <p>{{ note.content }}</p>
+
+    
+
+    <a href="{% url 'delete_note' note.id %}" type="button" class="m-3 btn btn-danger btn-lg"><i class="bi bi-0-circle"></i> Delete Note</a>
+    <br>
+    <a href="{% url 'notes_list' %}" type="button" class="m-3 btn btn-warning btn-lg"><i class="bi bi-card-list"></i> Return to Admin Notes</a>
+
+
     
 {% endblock %}

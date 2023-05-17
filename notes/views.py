@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404, reverse # redirect to redirect to another url
 from django.http import Http404 # return correct error msg
+from django.contrib import messages
+
+from django.core.paginator import Paginator # import paginator to split notes into pages
 
 # class base views
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -10,9 +13,16 @@ from .forms import NotesForm
 
 
 # we want all the notes info (objects) coming from the database to be avaialble to the template
+# added pagination to notes_list view - https://docs.djangoproject.com/en/4.2/topics/pagination/
 def notes_list(request):
     all_notes = Notes.objects.all() # get all notes from db
-    return render(request, 'notes/notes_list.html', {'notes': all_notes}) # return request, template, context
+    # Paginator class to split notes into pages
+    paginator = Paginator(all_notes, 6) # split notes into pages of 4
+    
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    # previous context dict was - {'notes': all_notes}
+    return render(request, 'notes/notes_list.html', {"page_obj": page_obj}) # return request, template, context
 
 # test to display admin note content in template - extra arg 'pk' for primary key to id note object
 def notes_detail(request, pk):
@@ -43,4 +53,12 @@ def notes_create(request, pk=None):
         form = NotesForm(instance=post)
         return render(request, 'notes/notes_form.html', {'form': form})
     # return render(request, 'notes/create_note.html')
+    
+
+def delete_note(request, pk):
+    note = get_object_or_404(Notes, pk=pk)
+    if request.user.is_authenticated and request.user.is_superuser: # is user is authenticated and is superuser/admin
+        note.delete()
+        messages.success(request, 'Your post has been deleted')
+    return redirect('notes_list')
     

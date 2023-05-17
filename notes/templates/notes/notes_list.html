@@ -2,14 +2,56 @@
 
 {% block content %}
 
-<h1> Admin Notes</h1>
+<h1 class="m-3"> Admin Notes</h1>
 <!-- <ul>
     {% for note in notes %}
     <li>{{ note.title }}</li>
     {% endfor %}
 </ul> -->
+<div class="card-group row row-cols3 g-2">
+{% for note in page_obj %}
+    {# Each "contact" is a Contact model object. #}
+    <div class="col">
+        <div class="p-3 border card">
+            
+            <div class="card-body">
+                <h5 class="card-title">Title: {{ note.title|truncatechars:14 }}</h5>
+                <p class="card-text">{{ note.content|truncatechars:10 }}</p>
+                <p class="text-muted">created on {{ note.created_at }} </p>
+                <!-- <p class="card-text"><small class="text-muted">{{ note.id }}</small></p> -->
+                <!-- using notes id here to concat to url route to get to specific note object page  -->
+                <!-- https://stackoverflow.com/questions/35382716/django-templates-how-to-concatenate-a-named-url-and-a-string -->
+                <a href="{% url 'notes_list' %}{{note.id}}" type="button" class="btn btn-primary">Check Out This Note</a>
+                {% comment %} <a href="{% url 'notes_detail' pk=note.id %}" type="button" class="btn btn-success">Check Out Same</a> {% endcomment %}
+                
+            </div>
+        </div>
+    </div>
+    
+{% endfor %}
+</div>
 
-<div class="row row-cols3 g-2">
+<div class="pagination m-3">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<a href="{% url 'notes_create' %}" type="button" class="btn btn-success btn-lg"><i class="bi bi-joystick"></i> Create an Admin Notes</a>
+
+{% comment %} <div class="row row-cols3 g-2">
     {% for note in notes %}
     <div class="col">
         <div class="p-3 border card">
@@ -28,7 +70,7 @@
         </div>
     </div>
     {% endfor %}
-</div>
+</div> {% endcomment %}
 
 {% endblock %}
 

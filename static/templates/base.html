@@ -52,6 +52,10 @@
             <li class="nav-item">
             <a class="nav-link" href="{% url 'weather' %}">Weather Comparison</a>
             </li>
+
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'emissions' %}">Emissions Comparison</a>
+            </li>
             
             {% if user.is_superuser %}
             <li class="nav-item">
@@ -74,7 +78,7 @@
     {% if user.is_authenticated %}
     
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ message }}
+    {{ message }} - {{ user.username }} 
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     

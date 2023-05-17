@@ -143,6 +143,9 @@ def emissions(request):
         
         return render(request, 'weather/emissions.html')
 
+# this function will be called by the emissions view
+# it will take the user input and make a request to the api
+# returns a json object based on input parms
 def emissions_search(region, passengers, distance):
     
     MY_API_KEY = str(os.environ.get('API_KEY'))
@@ -171,7 +174,7 @@ def emissions_search(region, passengers, distance):
     # We send a POST request to the estimate endpoint with a json body and the correct authorization headers
     emission_response = requests.post("https://beta3.api.climatiq.io/estimate", json=json_body, headers=authorization_headers)
     
-    reemission_response = emission_response.json()
+    reemission_response = emission_response.json() # get as json object to treat as a dict in python {'key' : 'value'}
     # print(reemission_response['co2e'])
     # print(reemission_response['emission_factor']['name'])
     
