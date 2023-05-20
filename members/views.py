@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm # django register form for users
-from .forms import RegisterUserForm # import forms.py
+from .forms import RegisterUserForm, UserUpdateForm, ProfileUpdateForm # import forms.py
 from django.contrib.auth.decorators import login_required # decorator to restrict access to certain pages to logged in users only
 
 
@@ -68,4 +68,26 @@ def register_user(request):
 
 @login_required(login_url='login') # decorator to restrict access to certain pages to logged in users only
 def profile(request):
-    return render(request, 'authenticate/profile.html', {}) # empty conetxt dict
+    if request.method == "POST": # post conditional, what is run when we submit the form
+    # we populate the fields of forms my passing in the instance of the user   
+        user_form = UserUpdateForm(request.POST, instance=request.user) # pass in the instance of the user + post data
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile) # pass in the instance of the user profile + plus data plus files for img
+        
+        # now we validate the forms so we need  'and'condition  to check both forms are valid
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save() # saving both forms
+            print('saved')
+            # pass success message to user
+            messages.success(request, 'Your profile has been updated successfully') 
+            return redirect('profile') # redirect to profile page and avoids extra post request (refreshing page)
+        
+    else:
+        user_form = UserUpdateForm(instance=request.user) # pass in the instance of the user
+        profile_form = ProfileUpdateForm(instance=request.user.profile) # pass in the instance of the user profile
+    # pass into template:
+    context = { 
+        'user_form': user_form,
+        'profile_form': profile_form
+    }
+    return render(request, 'authenticate/profile.html', context) # empty conetxt dict

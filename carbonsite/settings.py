@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     'notes',
     'members', # users app
     'weather',
+    'crispy_forms', # django crispy forms
+    'crispy_bootstrap4', # django crispy forms bootstrap 4
 ]
 
 MIDDLEWARE = [
@@ -161,5 +163,7 @@ MEDIA_URL = '/media/' # url to access files in browser
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
