@@ -155,8 +155,8 @@ def fetch_weather(city, api_key, current_weather_url):
         # raise Http404("Response was a mess, please try another!!!")
         # return redirect('emissions')
 
-
-def emissions(request):
+# WORKING VERSION OF THE FUNCTION for emissions
+def _emissions(request):
      
     if request.method == 'POST':
         region = request.POST['region'] # required
@@ -217,3 +217,84 @@ def emissions_search(region, passengers, distance):
     print(emiss_data['c02'])
     
     return emiss_data
+
+# emissions tester with query and region
+# query is powerful as it's free text search
+# - A free-text query that will match ids, names, descriptions, etc. of emission factors. This uses fuzzy matching, so your query does not need to be precise.
+# via https://www.climatiq.io/docs/api-reference/search
+
+def emissions(request):
+     
+    if request.method == 'POST':
+        region = request.POST['region'] # required
+        passengers = request.POST.get('passengers', None)
+        distance = request.POST.get('distance', None)
+        query = request.POST.get('query', None) # now added to test query search
+
+        # emissions_data1 = emissions_search(region, passengers, distance)
+        
+        if query:
+            emissions_data1 = emissions_search(region, passengers, distance)
+            emissions_data2 = emissions_query(query, region)
+            # context = {
+            #     'emissions1': emissions_data1,
+            #     'emissions2': emissions_data2,
+            # }
+        else:
+            emissions_data1 = emissions_search(region, passengers, distance)
+            emissions_data2 = None
+        
+        context = {
+                'emissions1': emissions_data1,
+                'emissions2': emissions_data2,
+            }
+        
+        return render(request, 'weather/emissions.html', context)
+    
+    else:
+        
+        return render(request, 'weather/emissions.html')
+
+
+# emssions regional queries 21/0/2023
+
+def emissions_query(query, region):
+    MY_API_KEY = str(os.environ.get('API_KEY'))
+    
+    url = "https://beta4.api.climatiq.io/search"
+    query = query # assign query arg to a variable
+    query_params = {
+    # Free text query can be writen under the query string
+    "query": query,
+    # You can also filter on region, year, source and more
+    "region": region,
+    # The string below means "major version 1 compatible", which means we stay on major version 1 of the data
+    "data_version": "^1",
+}
+    authorization_headers = {"Authorization": f"Bearer: {MY_API_KEY}"}
+
+    search_response = requests.get(url, params=query_params, headers=authorization_headers).json()
+    
+    # print(search_response.keys()) # find keys in large data set
+
+    # # The most relevant is probably the results - here are the first 
+    # print(search_response["results"][0:1])
+    # print(type(search_response["results"][0:1])) # list with nested dict
+    
+    search_response_list = search_response["results"][0:1]
+
+    description = search_response_list[0]['description']
+
+    # Access the CO2 value
+    co2_value = search_response_list[0]['constituent_gases']['co2']
+
+    # print(f"Description: {description}")
+    # print(f"CO2 value: {co2_value}")
+    
+    query_data = {
+        'c02': search_response_list[0]['constituent_gases']['co2'],
+        'description': search_response_list[0]['description'], 
+    }
+    
+    return query_data
+

@@ -2,18 +2,34 @@
 
 {% block content %}
 <div class="shadow p-4 mb-5 bg-body rounded">
-<h1>Emissions</h1>
-
+<h1>Co2 Emissions via Train Travel</h1>
+<br>
 <form action='' method="POST" >  
     {% csrf_token %}
 
-    <input type="text" name="region" placeholder="Region like IE">
-    <input type="text" name="passengers" placeholder="Number of Travellers">
-    <input type="text" name="distance" placeholder="km">
+    <input type="text" name="region" placeholder="Region like IE" required>
+    <input type="text" name="passengers" placeholder="Number of Travellers" required>
+    <input type="text" name="distance" placeholder="km" required>
+
+    <input type="text" name="query" placeholder="Try - grid mix">
 
     <button type="submit" class="btn btn-primary">Show Co2</button>
 
 </form>
+
+<br>
+{% comment %} <h1> Query </h1>
+
+<form action='' method="POST" >  
+    {% csrf_token %}
+
+    <input type="text" name="region" placeholder="Region like AT">
+    <input type="text" name="query" placeholder="Query">
+    
+
+    <button type="submit" class="btn btn-primary">Show Query Results</button>
+
+</form> {% endcomment %}
 
 {% comment %} {% if emiss_data1 %}
 <h1> {{ emiss_data1.c02 }} </h1>
@@ -23,6 +39,12 @@
 {% if emissions1 %}
 <div class="city-cotainer">
     {% include 'weather/emissions_data.html' with emiss_data1=emissions1 %}
+</div>
+{% endif %}
+
+{% if emissions1 and emissions2 %}
+<div class="city-cotainer">
+    {% include 'weather/emissions_data.html' with emiss_data1=emissions1 emiss_data2=emissions2 %}
 </div>
 {% endif %}
 
