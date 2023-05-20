@@ -8,6 +8,18 @@
   <p>Today is {{ today }}</p>
   
   <!-- we refer here to 'name' parm in url route -->
-  <a href="{% url 'notes_list' %}" type="button" class="btn btn-success btn-lg"><i class="bi bi-joystick"></i> Check Out Admin Notes</a>
+  {% if user.is_authenticated %}
+    <p>Welcome back {{ user.username }}!</p>
+  {% else %}
+    <p>Hi guest! Please click the register link below to sign up!</p>
+  <a href="{% url 'register' %}" type="button" class="btn btn-success btn-lg"><i class="bi bi-joystick"></i> Sign up and get a profile</a>
+  
+  {% endif %}
+
+  {% if user.is_superuser %}
+    {% comment %} <p>Hi {{ user.username }}!</p> {% endcomment %}
+    <a href="{% url 'notes_list' %}" type="button" class="btn btn-success btn-lg"><i class="bi bi-joystick"></i> Check Out Admin Notes</a>
+  {% endif %}
+  {% comment %} <a href="{% url 'notes_list' %}" type="button" class="btn btn-success btn-lg"><i class="bi bi-joystick"></i> Check Out Admin Notes</a> {% endcomment %}
 
 {% endblock %}

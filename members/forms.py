@@ -3,7 +3,8 @@ from django.contrib.auth.models import User # django user model
 from django import forms # django forms
 
 # create an updated user registeration form that incorporates first, last name, email
-# via the User object in Django
+# via the User object in Django - we are udpdating the pre built UserCreationForm in the Django framework
+# using polymorphism - we are creating a child class of UserCreationForm and updating it
 
 # RegisterUserForm is child class of UserCreationForm - inherits all the fields from UserCreationForm
 class RegisterUserForm(UserCreationForm):

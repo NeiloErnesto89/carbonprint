@@ -44,7 +44,7 @@ def register_user(request):
         form = RegisterUserForm(request.POST) # if user fills form and submits - we pass that data to the UserCreationForm
         # now we validate the form
         if form.is_valid():
-            form.save() # save the form to the database
+            form.save() # save the form to the database i.e user
             # username = form.cleaned_data.get('username') # get the username from the form 'cleaned' data
             # password = form.cleaned_data.get('password1') # get the 1st password from the form 'cleaned' data
             username = form.cleaned_data['username'] # get the username from the form 'cleaned' data
