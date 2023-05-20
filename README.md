@@ -1,6 +1,6 @@
 <h1 align="center">Contemporary Software Development Final Year Project 
 
-<h2 align="center">  </h2>
+<h2 align="center"> 🌍  </h2>
 
 
 ## **Project Introduction and Brief**
