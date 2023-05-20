@@ -17,6 +17,8 @@ Including another URLconf
 import debug_toolbar
 from django.contrib import admin
 from django.urls import path, include # add url
+from django.conf import settings
+from django.conf.urls.static import static
 
 # from home.views import index
 
@@ -31,3 +33,7 @@ urlpatterns = [
     path('members/', include('members.urls')), # any urls that begin with 'members' should be routed to our members app
     path('weather/', include('weather.urls')),
 ]
+
+if settings.DEBUG: # if in debug mode, we add to urlpatterns - which we are, so we add the following:
+
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # using '+=' operator -> adds to urlpatterns list above

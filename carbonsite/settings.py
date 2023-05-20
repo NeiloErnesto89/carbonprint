@@ -154,7 +154,12 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static', # add static folder to project
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # path to dir where we want django to store uploaded files - stored on filesystem not db for performance
+MEDIA_URL = '/media/' # url to access files in browser
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+

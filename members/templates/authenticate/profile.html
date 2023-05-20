@@ -1,7 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p> hello {{ user.username}} </p>
+<h1> {{ user.username}}'s Profile </h1>
+
+<div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+        <div class="media-body">
+          <h2 class="account-heading">Username: {{ user.username }}</h2>
+          <p class="text-secondary">{{ user.profile.bio }}</p>
+          <p class="text-secondary">{{ user.profile.location }}</p>
+        </div>
+      </div>
+      <!-- FORM HERE -->
+    </div>
       
 
 {% endblock %}
