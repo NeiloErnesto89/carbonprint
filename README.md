@@ -38,3 +38,12 @@ Keeping in line with the project requirements
 - [**Credits**](#credits)
 	- [Content](#content)
 	- [Acknowledgements](#acknowledgements)
+
+## **Project Introduction**
+This project ..
+
+## **Requirements**
+
+Here are some objective requirements for the project:
+
+## **Design**
