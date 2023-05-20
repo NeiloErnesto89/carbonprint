@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm # django register form for users
 from .forms import RegisterUserForm # import forms.py
+from django.contrib.auth.decorators import login_required # decorator to restrict access to certain pages to logged in users only
 
 
 def login_user(request):
@@ -64,3 +65,7 @@ def register_user(request):
     
     # within if-else, we have a form context dict which we need to make available to the template                
     return render(request, 'authenticate/register_user.html', { 'form': form}) # form context dict 
+
+@login_required(login_url='login') # decorator to restrict access to certain pages to logged in users only
+def profile(request):
+    return render(request, 'authenticate/profile.html', {}) # empty conetxt dict
