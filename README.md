@@ -47,3 +47,5 @@ This project ..
 Here are some objective requirements for the project:
 
 ## **Design**
+
+Here are some design considerations for the project:
