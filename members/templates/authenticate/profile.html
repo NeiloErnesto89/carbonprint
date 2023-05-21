@@ -9,6 +9,8 @@
         <div class="media-body">
           <h2 class="account-heading">Username: {{ user.username }}</h2>
           <p class="text-secondary">{{ user.profile.bio }}</p>
+          <p class="text-muted"> You last logged in on {{ user.last_login }} </p>
+          <p> Your id {{ user.id }} </p>
           <p class="text-secondary">{{ user.profile.location }}</p>
         </div>
       </div>
@@ -17,14 +19,51 @@
         {% csrf_token %}
 
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Update Profile Info</legend>
+            <legend class="border-bottom mb-4">Update Profile</legend>
             {{ user_form|crispy }}
             {{ profile_form|crispy }}
             <br>
-        <button class="btn btn-outline-info" type="submit">Update</button>
+        <button class="btn btn-outline-info btn-lg" type="submit">Update</button>
         
     </form>
     </div>
+    <br>
+    {% comment %} delete profile test {% endcomment %}
+     {% if user.is_authenticated and request.user.id and not user.is_superuser   %}
+                    
+                            <!-- Button trigger modal -->
+          <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Delete Profile
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Delete User and Profile</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <i class="bi bi-cone-striped fa-lg" style="color: red; font-size: 45px;"></i>
+                                    <p>Be careful. Once you delete your profile, you cannot undo it!</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <a href="{% url 'delete_user' user.id %}" type="button" class="btn btn-danger">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {% elif user.is_authenticated and user.is_superuser %} 
+        {% comment %} {% if user.is_superuser %} {% endcomment %}
+         <a href="{% url 'notes_list' %}" type="button" class="btn btn-success btn-lg"><i class="bi bi-joystick"></i> Check Out Admin Notes</a>
+        {% comment %} {% endif %} {% endcomment %}
+        
+               
+        {% endif %}
+
     
       
 

@@ -1,9 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404, reverse # redirect to redirect to another url
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm # django register form for users
 from .forms import RegisterUserForm, UserUpdateForm, ProfileUpdateForm # import forms.py
 from django.contrib.auth.decorators import login_required # decorator to restrict access to certain pages to logged in users only
+from django.contrib.auth.models import User # import User model
 
 
 def login_user(request):
@@ -91,3 +92,27 @@ def profile(request):
         'profile_form': profile_form
     }
     return render(request, 'authenticate/profile.html', context) # empty conetxt dict
+
+
+@login_required
+def delete_user(request, pk):
+
+    user = get_object_or_404(User, pk=pk)
+    # return HttpResponseRedirect
+
+    if request.user.is_authenticated and request.user == user:
+        user.delete()
+        messages.success(request, 'This User has been deleted')
+        return redirect(reverse("login"))
+
+    elif request.user.is_authenticated and request.user.is_superuser:
+        user.delete()
+        messages.success(request, 'The admin has deleted this user')
+        return redirect(reverse("home_page"))
+
+    elif request.user.is_authenticated and request.user.is_superuser and user.pk == 1:
+        messages.error(request, 'Admin cannot delete the Admin profile')
+        return redirect('profile', user.pk)
+    else:
+        messages.error(request, 'you are not allowed to deleted this user')
+        return redirect('profile', user.pk)
