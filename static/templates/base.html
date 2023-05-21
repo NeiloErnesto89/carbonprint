@@ -59,7 +59,13 @@
             <li class="nav-item">
             <a class="nav-link" href="{% url 'emissions' %}">Emissions Comparison</a>
             </li>
+            {% comment %} travel_tracker {% endcomment %}
             
+
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'travel_tracker' %}">Travel Tracker</a>
+            </li>
+
             {% if user.is_superuser %}
             <li class="nav-item">
             <a class="nav-link" href="{% url 'notes_list' %}">Admin Notes</a>

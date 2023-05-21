@@ -4,6 +4,7 @@ import datetime
 import os
 from django.http import Http404 # for fetch weather test
 from django.contrib import messages
+from requests.exceptions import HTTPError # checking for bad request - 404
 
 # emissions
 import json
@@ -298,3 +299,98 @@ def emissions_query(query, region):
     
     return query_data
 
+
+# flight tracker method 
+
+def flight_tracker(request):
+    
+    flight_class = ['economy', 'unknown', 'business', 'first']
+    
+    # try except to handle errors
+    try:
+        if request.method == 'POST':
+            travel = request.POST['travel'] # required
+            leg_from = request.POST.get('leg_from', None)
+            leg_to = request.POST.get('leg_to', None)
+            passengers = request.POST.get('passengers', None) 
+            travel_class = request.POST.get('travel_class', None)
+            
+            flight_tracker_data = flight_tracker_calculation(travel, leg_from, leg_to, passengers, travel_class)
+        
+            context = {
+                'flight_tracker': flight_tracker_data, # access to co2e, co2 unit, activity unit
+                'flight_class': flight_class,
+            }
+            return render(request, 'weather/travel.html', context)
+        
+        else:
+            context = {
+                'flight_class': flight_class,
+            }
+            
+            return render(request, 'weather/travel.html', context)
+        
+    except KeyError as http_err:
+        error_message = str(http_err)
+        messages.error(request, 'Please enter a valid airport code with the IATA code')
+        # print(error_message)
+        
+        context = {
+                'flight_class': flight_class,
+                'error_message': error_message,
+            }
+        
+        return render(request, 'weather/travel.html', context)
+        
+    # else:
+    #     context = {
+    #         'flight_class': flight_class,
+    #     }
+        
+    #     return render(request, 'weather/travel.html', context)
+    
+def flight_tracker_calculation(travel, leg_from, leg_to, passengers, travel_class):
+    
+        MY_API_KEY = str(os.environ.get('API_KEY'))
+        
+        if travel == 'flights':
+            url = "https://beta4.api.climatiq.io/travel/flights"
+            
+        else:
+            url = "https://beta4.api.climatiq.io/travel/flights"
+            
+        parameters = {
+        "legs": [
+            {
+                "from": leg_from,
+                "to": leg_to,
+                "passengers": int(passengers),
+                "class": travel_class
+            },
+            # {
+            #     "from": "AMS",
+            #     "to": "JFK",
+            #     "passengers": 2,
+            #     "class": "economy"
+            # }
+        ]
+        }
+        
+        authorization_headers = {"Authorization": f"Bearer: {MY_API_KEY}"}
+
+        response = requests.post("https://beta4.api.climatiq.io/travel/flights", json=parameters, headers=authorization_headers)
+
+        # pprint.pprint(response.json())
+
+        repo_json = response.json()
+        # print(repo_json['co2e']) # entire journey
+        # print(repo_json['legs'][0]['activity_data']['activity_unit'])
+        
+        flight_data = {
+            'c02': round(repo_json['co2e'],2), # round down co2e to 2 decimal places
+            'unit': repo_json['co2e_unit'],
+            'activity_unit': repo_json['legs'][0]['activity_data']['activity_unit'],
+            'activity_value': round(repo_json['legs'][0]['activity_data']['activity_value'], 2),
+        }
+        
+        return flight_data
