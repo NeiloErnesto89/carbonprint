@@ -8,20 +8,27 @@
     </svg>
     Flight Travel Tracker
 </h1>
-<span class="text-gray-500 align-left text-xs mb-1">Look up IATA codes 
+<span class="text-gray-500 align-left text-xs mb-1">Look up IATA codes for flights
     <a rel="noreferrer" class="underline text-blue-500" target="_blank" href="https://www.iata.org/en/publications/directories/code-search/">here</a></span>
 <br>
 <br>
 <form action='' method="POST" >  
     {% csrf_token %}
     
-    <input type="text" name="travel" placeholder="travel type" required>
+    {% comment %} <input type="text" name="travel" placeholder="travel type" required> {% endcomment %}
+
+     <select class="form-select m-3" name="travel" aria-label=".form-select-lg example" required>
+        <option disabled selected value>Required: Choose mode of transport</option>
+        <option value="flights">Personal Flights</option>  
+    </select>  
+
     
     <input type="text" name="leg_from" placeholder="from" required>
     <input type="text" name="leg_to" placeholder="to" required>
-    <input type="text" name="passengers" placeholder="Number of Travellers" required>
+    <input type="number" name="passengers" placeholder="Number of Travellers" required>
     {% comment %} <input type="text" name="travel_class" placeholder="flight class" required>  {% endcomment %}
-    <select name="travel_class" id="travel_class">
+    <select class="form-select m-3" name="travel_class" aria-label=".form-select-lg example" id="travel_class" required>
+       <option disabled selected value>Required: Choose flight class</option>
         {% for option in flight_class %}
         <option value="{{ option }}">{{ option }}</option>
         {% endfor %}
@@ -46,10 +53,9 @@
 
 {% if flight_tracker %}
 <div class="city-cotainer">
-    <h4> Here are the results of your query <h3>
-       <li> co2 level: {{ flight_tracker.c02 }} in {{ flight_tracker.unit }} </li>
-       
-        <li> {{ flight_tracker.activity_value }} activity in {{ flight_tracker.activity_unit }}</li>
+    <h4> Here are the results of your flight tracker query: <h3>
+       <p> co2 level: {{ flight_tracker.c02 }} {{ flight_tracker.unit }}'s of CO2 </p>
+        <p> {{ flight_tracker.activity_value }} distance per {{ flight_tracker.activity_unit }}</p>
 </div>
 {% endif %}
 </div>

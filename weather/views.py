@@ -212,7 +212,8 @@ def emissions_search(region, passengers, distance):
     # print(reemission_response['emission_factor']['name'])
     
     emiss_data = {
-        'c02': reemission_response['co2e'],
+        'c02': round(reemission_response['co2e'], 2), # python round() function rounds to 2 decimal places
+        'c02_unit' : reemission_response['co2e_unit'],
         'emiss_factor': reemission_response['emission_factor']['name'], 
     }
     print(emiss_data['c02'])
@@ -295,6 +296,9 @@ def emissions_query(query, region):
     query_data = {
         'c02': search_response_list[0]['constituent_gases']['co2'],
         'description': search_response_list[0]['description'], 
+        'category' : search_response_list[0]['category'],
+        'source_data' : search_response_list[0]['source_dataset'],
+        'unit' : search_response_list[0]['unit']
     }
     
     return query_data
@@ -314,6 +318,8 @@ def flight_tracker(request):
             leg_to = request.POST.get('leg_to', None)
             passengers = request.POST.get('passengers', None) 
             travel_class = request.POST.get('travel_class', None)
+            # freight flight - involved weight by kg
+            # freight = request.POST.get('freight', None)     
             
             flight_tracker_data = flight_tracker_calculation(travel, leg_from, leg_to, passengers, travel_class)
         

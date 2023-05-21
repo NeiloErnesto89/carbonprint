@@ -1,10 +1,19 @@
 {% if emiss_data1 %}
-<h1> {{ emiss_data1.c02 }} C02</h1>
-<h2> Via {{ emiss_data1.emiss_factor }}  </h2>
+<h2>Result: {{ emiss_data1.c02 }} CO2 in {{ emiss_data1.c02_unit }}</h2>
+<h2> via {{ emiss_data1.emiss_factor }}  </h2>
 {% endif %} 
 
 {% if emiss_data2 %}
-<h3> {{ emiss_data2.c02 }} C02</h3>
-<p>{{ emiss_data2.description }}  </h2>
+
+<H4>Query Description: </h4> 
+    <p>{{ emiss_data2.description }}  </p>
+<p> Query Emission: {{ emiss_data2.c02 }} CO2 per {{ emiss_data2.unit }} </p>
+<p class="text-muted">Category: {{ emiss_data2.category }} </p>
+    {% if emiss_data2.source_data %}
+    <p class="text-muted">Data Source: {{ emiss_data2.source_data }} </p>
+    {% endif %} 
 {% endif %} 
+
+{% comment %} {% if emiss_data3 %}
+{% endif %}  {% endcomment %}
 
