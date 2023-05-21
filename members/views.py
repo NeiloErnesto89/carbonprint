@@ -97,13 +97,12 @@ def profile(request):
 @login_required
 def delete_user(request, pk):
 
-    user = get_object_or_404(User, pk=pk)
-    # return HttpResponseRedirect
+    user = get_object_or_404(User, pk=pk) # gets user by id or 404 error
 
     if request.user.is_authenticated and request.user == user:
         user.delete()
-        messages.success(request, 'This User has been deleted')
-        return redirect(reverse("login"))
+        messages.success(request, 'This user has been deleted - please register again if you would like a profile')
+        return redirect(reverse("register")) # should be register
 
     elif request.user.is_authenticated and request.user.is_superuser:
         user.delete()
