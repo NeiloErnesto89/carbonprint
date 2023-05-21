@@ -5,12 +5,15 @@
 
     <div class="content-section">
       <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+        {% comment %} <img class="rounded-circle account-img" src="{{ user.profile.image.url }}"> {% endcomment %}
+
+      <img src="{{ user.profile.image.url }}" class="rounded-circle avatar-xl img-thumbnail img-fluid" alt="profile-image">
+
         <div class="media-body">
           <h2 class="account-heading">Username: {{ user.username }}</h2>
           <p class="text-secondary">{{ user.profile.bio }}</p>
           <p class="text-muted"> You last logged in on {{ user.last_login }} </p>
-          <p> Your id {{ user.id }} </p>
+          {% comment %} <p> Your id {{ user.id }} </p> {% endcomment %}
           <p class="text-secondary">{{ user.profile.location }}</p>
         </div>
       </div>
