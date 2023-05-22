@@ -40,12 +40,24 @@ Keeping in line with the project requirements
 	- [Acknowledgements](#acknowledgements)
 
 ## **Project Introduction**
-This project ..
+The purpose of this project is to build a user-friendly web application to help user track and view their carbon footprint. The application will aim to enhance the users experience by providing up-to-date metrics and personalised feedback (via the users inputted information).
 
 ## **Requirements**
 
-Here are some objective requirements for the project:
+The following section details the requirements of the project. Functional requirements outline what a system can and cannot achieve, via the users’ actions. 
+
+### *Software Requirements*
+This application will be developed using the following software:
+- Python 3.10.5
+- Django
+- HTML, CSS, JavaScript
+- Git
+
 
 ## **Design**
 
-Here are some design considerations for the project:
+The Django framework operates with an MVC (Model-View-Controller) pattern whereby, the model (like a class) defines the data structure, the view is the UI being presented to the user and the controller connects them together with programmatic logic.
+
+## **Database**
+
+SQLite is a lightweight, serverless, file-based database engine that doesn't require a separate database server to run nor any configuration, and, according to the SQLite official documentation (SQLite, 2023) it is the “most widely deployed database in the world”. 
