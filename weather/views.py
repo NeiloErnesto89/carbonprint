@@ -5,6 +5,7 @@ import os
 from django.http import Http404 # for fetch weather test
 from django.contrib import messages
 from requests.exceptions import HTTPError # checking for bad request - 404
+from django.contrib.auth.decorators import login_required 
 
 # emissions
 import json
@@ -225,6 +226,7 @@ def emissions_search(region, passengers, distance):
 # - A free-text query that will match ids, names, descriptions, etc. of emission factors. This uses fuzzy matching, so your query does not need to be precise.
 # via https://www.climatiq.io/docs/api-reference/search
 
+@login_required(login_url='login') 
 def emissions(request):
      
     if request.method == 'POST':
@@ -305,7 +307,7 @@ def emissions_query(query, region):
 
 
 # flight tracker method 
-
+@login_required(login_url='login') 
 def flight_tracker(request):
     
     flight_class = ['economy', 'unknown', 'business', 'first']
