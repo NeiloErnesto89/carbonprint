@@ -19,14 +19,22 @@
     <!--  Bootstrap icons https://icons.getbootstrap.com/icons/joystick/ -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
-    <title>Welcome Page!</title>
+    {% comment %} <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto"> {% endcomment %}
+
+    
+
+    <title>Welcome to Carbonprint!</title>
 
     
 </head>
-<body>
+{% comment %} <body> {% endcomment %}
+    <body class="d-flex flex-column min-vh-100">
+    
+
+    <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'home_page'%}"><i class="bi bi-flower1" style="font-size: 35px;"></i></a>
+        <a class="navbar-brand" href="{% url 'home_page'%}"><i class="bi bi-flower1" style="font-size: 40px; color:green;"></i></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
         </button>
@@ -56,15 +64,18 @@
             <a class="nav-link" href="{% url 'weather' %}">Weather Comparison</a>
             </li>
 
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'emissions' %}">Train Emissions</a>
-            </li>
+            
             {% comment %} travel_tracker {% endcomment %}
             
             {% if user.is_authenticated %}
             <li class="nav-item">
             <a class="nav-link" href="{% url 'travel_tracker' %}">Flight Tracker</a>
             </li>
+            
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'emissions' %}">Train Emissions</a>
+            </li>
+
             {% endif %}
 
             {% if user.is_superuser %}
@@ -78,36 +89,73 @@
         </div>
     </div>
     </nav>
+    </header>
 
     <div class="my-5 text-center container">
-    <!-- the block allow for dynmaic injection of data -->
+        <!-- the block allow for dynmaic injection of data -->
 
-    {% if messages %}
+        {% if messages %}
 
-    {% for message in messages %}
-    {% if user.is_authenticated %}
-    
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ message }} - {{ user.username }} 
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    
-    {% else %}  
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    {{ message }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endif %}
+        {% for message in messages %}
+        {% if user.is_authenticated %}
         
-    {% endfor %}
-    {% comment %} {% if message.tags == 'success' %} {% endcomment %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }} - {{ user.username }} 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        
+        {% else %}  
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+            
+        {% endfor %}
+        {% comment %} {% if message.tags == 'success' %} {% endcomment %}
 
-    {% endif %}
+        {% endif %}
 
-    {% block content %}
+        {% block content %}
 
-    {% endblock %}
+
+        
+        {% endblock %}
     </div>
+
+        {% comment %} <div class="footer container-fluid">
+            <div class="row justify-content-center">
+                <div class="text-center col-xs-12 col-sm-6 mt-3">
+        
+                    <h6>Created by Neil Smyth (2023). Project for ATU Donegal. For Educational Purposes</h6>
+        
+                </div>
+                <div class="text-center col-xs-12 col-sm-6 mt-3">
+        
+                    <a href="https://github.com/NeiloErnesto89" target="_blank "><i class="fab fa-github" style="font-size:30px; color:white;"></i></a>
+        
+                </div>
+            </div>
+        </div> {% endcomment %}
+        <footer class="footer mt-auto py-3 bg-light">
+        {% comment %} <footer class="footer mt-auto py-3 bg-light" > {% endcomment %}
+            <div class="container">
+                {% comment %} <span class="text-muted">Place sticky footer content here.</span> {% endcomment %}
+                <div class="row justify-content-center">
+                <div class="text-center col-xs-12 col-sm-6 mt-3">
+        
+                    <h6>Created by Neil Smyth (2023). Project for ATU Donegal - For Educational Purposes</h6>
+                    <a href="https://github.com/NeiloErnesto89" target="_blank "><i class="bi bi-github" style="font-size:30px; color:green;"></i></a>
+        
+                </div>
+                 {% comment %} <div class="text-center col-xs-12 col-sm-6 mt-3">
+        
+                    <a href="https://github.com/NeiloErnesto89" target="_blank "><i class="bi bi-github" style="font-size:30px; color:green;"></i></a>
+        
+                </div>  {% endcomment %}
+                </div>
+            </div>
+        </footer>
 
 </body>
 </html> 
