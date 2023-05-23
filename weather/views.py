@@ -228,37 +228,47 @@ def emissions_search(region, passengers, distance):
 
 @login_required(login_url='login') 
 def emissions(request):
-     
-    if request.method == 'POST':
-        region = request.POST['region'] # required
-        passengers = request.POST.get('passengers', None)
-        distance = request.POST.get('distance', None)
-        query = request.POST.get('query', None) # now added to test query search
+    try: 
+        if request.method == 'POST':
+            region = request.POST['region'] # required
+            passengers = request.POST.get('passengers', None)
+            distance = request.POST.get('distance', None)
+            query = request.POST.get('query', None) # now added to test query search
 
-        # emissions_data1 = emissions_search(region, passengers, distance)
+            # emissions_data1 = emissions_search(region, passengers, distance)
+            
+            if query:
+                emissions_data1 = emissions_search(region, passengers, distance)
+                emissions_data2 = emissions_query(query, region)
+                # context = {
+                #     'emissions1': emissions_data1,
+                #     'emissions2': emissions_data2,
+                # }
+            else:
+                emissions_data1 = emissions_search(region, passengers, distance)
+                emissions_data2 = None
+            
+            context = {
+                    'emissions1': emissions_data1,
+                    'emissions2': emissions_data2,
+                }
+            
+            return render(request, 'weather/emissions.html', context)
         
-        if query:
-            emissions_data1 = emissions_search(region, passengers, distance)
-            emissions_data2 = emissions_query(query, region)
-            # context = {
-            #     'emissions1': emissions_data1,
-            #     'emissions2': emissions_data2,
-            # }
         else:
-            emissions_data1 = emissions_search(region, passengers, distance)
-            emissions_data2 = None
+            
+            return render(request, 'weather/emissions.html')
+    except ValueError as http_err: # if someone copies and pastes 1.0 decimal into the text input
+        error_message = str(http_err)
+        messages.error(request, 'Please enter a valid integer with no decimal places')
+        # print(error_message)
         
         context = {
-                'emissions1': emissions_data1,
-                'emissions2': emissions_data2,
+                
+                'error_message': error_message,
             }
         
         return render(request, 'weather/emissions.html', context)
-    
-    else:
-        
-        return render(request, 'weather/emissions.html')
-
 
 # emssions regional queries 21/0/2023
 
@@ -349,7 +359,18 @@ def flight_tracker(request):
             }
         
         return render(request, 'weather/travel.html', context)
+    
+    except ValueError as http_err:
+        error_message = str(http_err)
+        messages.error(request, 'Please enter a positive, whole number that is not a decimal ')
+        # print(error_message)
         
+        context = {
+                'flight_class': flight_class,
+                'error_message': error_message,
+            }
+        
+        return render(request, 'weather/travel.html', context)   
     # else:
     #     context = {
     #         'flight_class': flight_class,
