@@ -23,8 +23,19 @@
     </select> 
 
 
-    <input type="number" name="passengers" placeholder="Number of Travellers" data-bs-toggle="tooltip" title="Enter a number!" required>
-    <input type="number" name="distance" placeholder="Distance in km" data-bs-toggle="tooltip" title="Enter a number!" required>
+      {% comment %} <input type="number"
+        name="passengers"
+        placeholder="Num of Travellers"
+        min="1"
+        step="1"
+        onfocus="this.previousValue = this.value"
+        onkeydown="this.previousValue = this.value"
+        oninput="validity.valid || (value = this.previousValue)"
+        data-bs-toggle="tooltip" 
+        title="Enter a number!" required/>  {% endcomment %}
+
+    <input type="number" name="passengers" placeholder="Number of Travellers" min="1" value="1" step="1" onkeypress="return event.charCode >= 48" data-bs-toggle="tooltip" title="Enter a number!" required> 
+    <input type="number" name="distance" placeholder="Distance in km" min="1" value="100" data-bs-toggle="tooltip" title="Enter a number!" required>
 
     {% comment %} <input type="number" name="distance" data-bs-toggle="tooltip" title="Enter a number!" placeholder="Distance in km"
     onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" required/> {% endcomment %}

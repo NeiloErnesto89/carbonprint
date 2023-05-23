@@ -25,7 +25,7 @@
         
         <input type="text" name="leg_from" placeholder="from" required>
         <input type="text" name="leg_to" placeholder="to" required>
-        <input type="number" name="passengers" placeholder="Number of Travellers" required>
+        <input type="number" name="passengers" placeholder="Number of Travellers" min="1" value="1" required>
         {% comment %} <input type="text" name="travel_class" placeholder="flight class" required>  {% endcomment %}
         <select class="form-select m-3" name="travel_class" aria-label=".form-select-lg example" id="travel_class" required>
         <option disabled selected value>Required: Choose flight class</option>
@@ -58,7 +58,7 @@
             <p> {{ flight_tracker.activity_value }} distance per {{ flight_tracker.activity_unit }}</p>
     </div>
     {% endif %}
-    
+
 </div>
 
 {% endblock%}
