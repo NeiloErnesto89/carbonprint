@@ -61,3 +61,9 @@ The Django framework operates with an MVC (Model-View-Controller) pattern whereb
 ## **Database**
 
 SQLite is a lightweight, serverless, file-based database engine that doesn't require a separate database server to run nor any configuration, and, according to the SQLite official documentation (SQLite, 2023) it is the “most widely deployed database in the world”. 
+
+#### **Database Schema**
+
+![home page](/media/readme_docs/CSW_Project_DB_Schema.png "Django Database Schema" ) <h2>
+
+*Figure 2. Landing Page (Phone) (Index.html)*
