@@ -2,26 +2,24 @@
 
 <h2 align="center"> 🌍  </h2>
 
-## **Project Introduction and Brief**
+## **Project Introduction**
 
-### *Title: **[Carbonprint Emissions Site](https://github.com/NeiloErnesto89/carbonprint)** - an carbon footprint tracker website and community*
+### *Title: **[Tracking your Carbon Footprint: A Python (Django) Sustainability Application](https://github.com/NeiloErnesto89/carbonprint)** - an carbon footprint tracker website and community*
 
-*ATU DONEGAL - CSD Project - Django Framework Python*
+*ATU DONEGAL - CSD Final Report Project - Django Framework Python Artefact*
 
 This is a site aimed at people interested in being more ecofriendly who want to have a personalised experience and track their own carbon emissions.
 
 *The Figures below show the current home page and the flight tracker section on mobile view*
 
+#### Figure 1. Current Home Page on Browser
 ![home](/media/readme_docs/home_page_carbonprint.png "Current Home Page Browser" ) <h2>
 
-*Figure 1. Current Home Page on Browser*
 
+#### Figure 2. Flight Tracker Section Mobile View with Responsive with Dropdown (Hamburger Icon)
 ![mvc](/media/readme_docs/flight_tracker_page_mobile.png "Flight Tracker Section Mobile with Dropdown" ) <h2>
 
-*Figure 2. Flight Tracker Section Mobile View with Responsive with Dropdown (Hamburger Icon)*
 
-
-Keeping in line with the project requirements 
 
 ### *Note for Tester*
 
@@ -32,18 +30,14 @@ Keeping in line with the project requirements
 **Table of Contents**
 
 - [**Project Introduction**](#project-introduction)
-- [**Requirements**](#requirments)
+- [**Requirements**](#requirements)
 - [**Design**](#design)
-    - [Wireframes](#wireframes)
 - [**Database**](#database)
 	- [**Dataebase Schema**](#database-schema)
 - [**Implementation**](#implementation)
-     
 - [**Testing**](#testing)
-
 - [**Credits**](#credits)
-	- [Content](#content)
-	- [Acknowledgements](#acknowledgements)
+
 
 ## **Project Introduction**
 The purpose of this project is to build a user-friendly web application to help user track and view their carbon footprint. The application will aim to enhance the users experience by providing up-to-date metrics and personalised feedback (via the users inputted information).
@@ -64,25 +58,24 @@ This application will be developed using the following software:
 
 The Django framework operates with an MVC (Model-View-Controller) pattern whereby, the model (like a class) defines the data structure, the view is the UI being presented to the user and the controller connects them together with programmatic logic.
 
-
+#### Figure 3. Django MVC Architecture
 ![mvc](/media/readme_docs/djang_architecture.png "MVC" ) <h2>
 
-*Figure 3. Django MVC Architecture*
 
 ## **Database**
 
 SQLite is a lightweight, serverless, file-based database engine that doesn't require a separate database server to run nor any configuration, and, according to the SQLite official documentation (SQLite, 2023) it is the “most widely deployed database in the world”. 
 
-#### **Database Schema**
-
+### **Database Schema**
+#### Figure 3. Django Database Schema utilising Models/Class
 ![database schema](/media/readme_docs/CSW_Project_DB_Schema.png "Django Database Schema" ) <h2>
 
-*Figure 3. Django Database Schema utilising Models/Class*
+
 
 
 ## **Implementation**
 
-Step detailed of the implementation chapter of the project report.
+Steps detailed of the implementation chapter of the project report. Models, Views, URL Routes and Templates and how they function together are all detailed in the report.
 
 ## **Tests**
 
