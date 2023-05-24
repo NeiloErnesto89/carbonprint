@@ -35,7 +35,7 @@ It's also important to note that an API secret key will need to be generate from
 - [**Requirements**](#requirements)
 - [**Design**](#design)
 - [**Database**](#database)
-	- [**Dataebase Schema**](#database-schema)
+	- [**Database Schema**](#database-schema)
 - [**Implementation**](#implementation)
 - [**Testing**](#testing)
 - [**Credits**](#credits)
@@ -79,7 +79,7 @@ SQLite is a lightweight, serverless, file-based database engine that doesn't req
 
 Steps detailed of the implementation chapter of the project report. Models, Views, URL Routes and Templates and how they function together are all detailed in the report.
 
-## **Tests**
+## **Testing**
 
 Unit tests and manual tests undertaken to ensure the application is working as expected.
 
