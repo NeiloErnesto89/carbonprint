@@ -14,11 +14,11 @@ This is a site aimed at people interested in being more ecofriendly who want to 
 
 ![home](/media/readme_docs/home_page_carbonprint.png "Current Home Page Browser" ) <h2>
 
-*Figure x. Current Home Page on Browser*
+*Figure 1. Current Home Page on Browser*
 
 ![mvc](/media/readme_docs/flight_tracker_page_mobile.png "Flight Tracker Section Mobile with Dropdown" ) <h2>
 
-*Figure x. Flight Tracker Section Mobile View with Responsive with Dropdown (Hamburger Icon)*
+*Figure 2. Flight Tracker Section Mobile View with Responsive with Dropdown (Hamburger Icon)*
 
 
 Keeping in line with the project requirements 
@@ -27,7 +27,7 @@ Keeping in line with the project requirements
 
 *For the **testing purposes**, I suggest (at some stage) logging into the site as the **Admin/SuperUser**, using the following details*: 
 - Username: **admin**   
-- Password: **XXXXX** 
+- Password: **XXXXX** - provided in project report*
 
 **Table of Contents**
 
@@ -38,14 +38,9 @@ Keeping in line with the project requirements
 - [**Database**](#database)
 	- [**Dataebase Schema**](#database-schema)
 - [**Implementation**](#implementation)
-- [**Features**](#features)
-	- [Existing features](#existing-features)
-	- [Features left to implement](#features-left-to-implement)       
-- [**Technology**](#technology)
-- [**Testing**](#testing)	
-    - [Unit Tests](#unit-tests)
-    - [User Experiences](#user-experiences)
-- [**Bugs**](#bugs)
+     
+- [**Testing**](#testing)
+
 - [**Credits**](#credits)
 	- [Content](#content)
 	- [Acknowledgements](#acknowledgements)
@@ -72,7 +67,7 @@ The Django framework operates with an MVC (Model-View-Controller) pattern whereb
 
 ![mvc](/media/readme_docs/djang_architecture.png "MVC" ) <h2>
 
-*Figure x. Django MVC Architecture*
+*Figure 3. Django MVC Architecture*
 
 ## **Database**
 
@@ -82,7 +77,16 @@ SQLite is a lightweight, serverless, file-based database engine that doesn't req
 
 ![database schema](/media/readme_docs/CSW_Project_DB_Schema.png "Django Database Schema" ) <h2>
 
-*Figure x. Django Database Schema utilising Models/Class*
+*Figure 3. Django Database Schema utilising Models/Class*
+
+
+## **Implementation**
+
+Step detailed of the implementation chapter of the project report.
+
+## **Tests**
+
+Unit tests and manual tests undertaken to ensure the application is working as expected.
 
 ## **Credits** 
 
