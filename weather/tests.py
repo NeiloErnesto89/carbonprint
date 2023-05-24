@@ -24,10 +24,10 @@ class FlightTrackerTestCase(TestCase):
         passengers = '2'
         travel_class = 'economy'
 
-        # Here we mock the requests.post method
+        # Here we are mocking the requests.post method which is just 
         with mock.patch('requests.post') as mock_post:
             
-            # mock response JSON to imitate the API response
+            # now using mock response JSON to imitate the API response and assign it to a variable
             mock_response = { 
                 'co2e': 100.0,
                 'co2e_unit': 'kg',

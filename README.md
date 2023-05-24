@@ -2,7 +2,6 @@
 
 <h2 align="center"> 🌍  </h2>
 
-
 ## **Project Introduction and Brief**
 
 ### *Title: **[Carbonprint Emissions Site](https://github.com/NeiloErnesto89/carbonprint)** - an carbon footprint tracker website and community*
@@ -10,6 +9,17 @@
 *ATU DONEGAL - CSD Project - Django Framework Python*
 
 This is a site aimed at people interested in being more ecofriendly who want to have a personalised experience and track their own carbon emissions.
+
+*The Figures below show the current home page and the flight tracker section on mobile view*
+
+![home](/media/readme_docs/home_page_carbonprint.png "Current Home Page Browser" ) <h2>
+
+*Figure x. Current Home Page on Browser*
+
+![mvc](/media/readme_docs/flight_tracker_page_mobile.png "Flight Tracker Section Mobile with Dropdown" ) <h2>
+
+*Figure x. Flight Tracker Section Mobile View with Responsive with Dropdown (Hamburger Icon)*
+
 
 Keeping in line with the project requirements 
 
@@ -26,6 +36,7 @@ Keeping in line with the project requirements
 - [**Design**](#design)
     - [Wireframes](#wireframes)
 - [**Database**](#database)
+	- [**Dataebase Schema**](#database-schema)
 - [**Implementation**](#implementation)
 - [**Features**](#features)
 	- [Existing features](#existing-features)
@@ -58,12 +69,23 @@ This application will be developed using the following software:
 
 The Django framework operates with an MVC (Model-View-Controller) pattern whereby, the model (like a class) defines the data structure, the view is the UI being presented to the user and the controller connects them together with programmatic logic.
 
+
+![mvc](/media/readme_docs/djang_architecture.png "MVC" ) <h2>
+
+*Figure x. Django MVC Architecture*
+
 ## **Database**
 
 SQLite is a lightweight, serverless, file-based database engine that doesn't require a separate database server to run nor any configuration, and, according to the SQLite official documentation (SQLite, 2023) it is the “most widely deployed database in the world”. 
 
 #### **Database Schema**
 
-![home page](/media/readme_docs/CSW_Project_DB_Schema.png "Django Database Schema" ) <h2>
+![database schema](/media/readme_docs/CSW_Project_DB_Schema.png "Django Database Schema" ) <h2>
 
-*Figure 2. Landing Page (Phone) (Index.html)*
+*Figure x. Django Database Schema utilising Models/Class*
+
+## **Credits** 
+
+Credit Interview Bit of the MVC Figure 1. Django Database Schema utilising Models/Class
+Credit ATU Donegal for the project brief and requirements
+Credit to StackOverflow for the many questions and answers that helped me along the way
