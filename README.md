@@ -27,6 +27,8 @@ This is a site aimed at people interested in being more ecofriendly who want to 
 - Username: **admin**   
 - Password: **XXXXX** - provided in project report*
 
+It's also important to note that an API secret key will need to be generate from the sites: Climatiq and OpenWeatherMap. These keys will need to be added to the **.env** file in the main directory of the **carbonprint** project.
+
 **Table of Contents**
 
 - [**Project Introduction**](#project-introduction)
